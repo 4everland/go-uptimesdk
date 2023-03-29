@@ -71,8 +71,6 @@ func (c *Client) ReportWithOpt(m map[string]message.Message, extra string, opts 
 		return err
 	}
 
-	body1 := string(buf)
-	fmt.Println(body1)
 	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(buf))
 
 	req.Header.Set("Authorization", opt.Authorization)
