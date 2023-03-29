@@ -11,17 +11,13 @@ go get github.com/4everland/go-uptimesdk
 ```go  
 client := NewClient("http://127.0.0.1", "test", "test-server", "test-instance")
 //simple report 
-err := c.ReportWithOpt(message.Message{
-        Value: 66,
-        Values: []message.Quota{
-            message.Quota{Name:"test1", Value: 64}
-        },
-    })
+err := c.Report("test", message.Message{
+		Value: 32,
+	})
 //with options
-err := c.ReportWithOpt(
-    message.Message{
-        Value: 65,
-    }, 
-    "", 
-    WithServerName("test-2"))
+	err := c.ReportWithOpt(map[string]message.Message{
+		"test": {
+			Value: 32,
+		},
+	}, "", WithServerName("test-2"))
 ```

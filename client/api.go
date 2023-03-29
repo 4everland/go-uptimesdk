@@ -41,15 +41,19 @@ func New(opts ...Option) *Client {
 	}
 }
 
-func (c *Client) Report(m message.Message) error {
+func (c *Client) ReportMany(m map[string]message.Message) error {
 	return c.ReportWithExtra(m, "")
 }
 
-func (c *Client) ReportWithExtra(m message.Message, extra string) error {
+func (c *Client) Report(name string, m message.Message) error {
+	return c.ReportMany(map[string]message.Message{name: m})
+}
+
+func (c *Client) ReportWithExtra(m map[string]message.Message, extra string) error {
 	return c.ReportWithOpt(m, extra)
 }
 
-func (c *Client) ReportWithOpt(m message.Message, extra string, opts ...Option) error {
+func (c *Client) ReportWithOpt(m map[string]message.Message, extra string, opts ...Option) error {
 	opt := c.opt
 	for _, o := range opts {
 		o(&opt)
@@ -57,11 +61,10 @@ func (c *Client) ReportWithOpt(m message.Message, extra string, opts ...Option) 
 
 	url := opt.Host + reportPath
 	body := message.Package{
-		Header: opt.Header,
-
 		ResourceMap: m,
 
-		Extra: extra,
+		Header: opt.Header,
+		Extra:  extra,
 	}
 	buf, err := json.Marshal(body)
 	if err != nil {
