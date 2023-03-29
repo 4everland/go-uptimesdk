@@ -22,7 +22,7 @@ type Header struct {
 
 type Package struct {
 	Header
-	ResourceMap map[string]Message `json:"resourceMap"`
+	ResourceMap map[string]Message `json:"resourceMapJsonStr"`
 
 	Extra string `json:"extra"`
 }
