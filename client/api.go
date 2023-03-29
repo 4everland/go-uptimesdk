@@ -60,8 +60,9 @@ func (c *Client) ReportWithOpt(m map[string]message.Message, extra string, opts 
 	}
 
 	url := opt.Host + reportPath
+	resourceData, _ := json.Marshal(m)
 	body := message.Package{
-		ResourceMap: m,
+		ResourceMap: string(resourceData),
 
 		Header: opt.Header,
 		Extra:  extra,
