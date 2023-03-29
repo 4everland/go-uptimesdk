@@ -74,7 +74,7 @@ func (c *Client) ReportWithOpt(m map[string]message.Message, extra string, opts 
 	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(buf))
 
 	req.Header.Set("Authorization", opt.Authorization)
-
+	req.Header.Set("Content-Type", "application/json")
 	resp, err := c.client.Do(req)
 	if err != nil {
 		return err
